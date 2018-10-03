@@ -1,2 +1,2 @@
-# SMPRs
+# SMPR
 
