@@ -6,14 +6,12 @@ euclideanDistance <- function(u, v)
 oNN <- function(xl, z, metricFunction =euclideanDistance){
   
   
-  min_dist = 1e14
-  
-  
+  min_dist = 1000
   l <- dim(xl)[1]
   n <- dim(xl)[2] - 1
   
   for (i in 1:l){
-    tmp_dist =metricFunction(xl[i, 1:n], z)
+    tmp_dist = metricFunction(xl[i, 1:n], z)
     
     if(tmp_dist < min_dist) {
       min_dist = tmp_dist
@@ -38,8 +36,8 @@ points_array = c()
 x1<-0
 x2<-0
 while (x1<7) { 
-  
   while (x2<3) { 
+    
     z <- c(x1,x2)
     class <- oNN(xl, z)
     points_array = c(points_array, c(z))
