@@ -1,0 +1,61 @@
+euclideanDistance <- function(u, v)
+{
+  sqrt(sum((u - v)^2))
+}
+
+sortObjectsByDist <- function(xl, z, metricFunction =
+                                euclideanDistance)
+{
+  l <- dim(xl)[1]
+  n <- dim(xl)[2] - 1
+  
+  distances <- matrix(NA, l, 2)
+  for (i in 1:l)
+  {
+    distances[i, ] <- c(i, metricFunction(xl[i, 1:n], z))
+  }
+  
+  orderedXl <- xl[order(distances[, 2]), ]
+  return (orderedXl);
+}
+
+kNN <- function(xl, z, k)
+{
+  
+  orderedXl <- sortObjectsByDist(xl, z)
+  n <- dim(orderedXl)[2] - 1
+  classes <- orderedXl[1:k, n + 1]
+  counts <- table(classes)
+  
+  class <- names(which.max(counts))
+  return (class)
+}
+
+colors <- c("setosa" = "red", "versicolor" = "green3",
+            "virginica" = "blue")
+
+
+iris30 = iris[sample(c(1:150), 60, replace=FALSE), 3:5]
+
+plot(iris30[, 1:2], pch = 21, bg = colors[iris30$Species],
+     col = colors[iris30$Species])
+
+xl <- iris30[, 1:3]
+
+points_array = c()
+x1<-0
+x2<-0
+while (x1<7) { 
+  
+  while (x2<3) { 
+    
+    z <- c(x1,x2)
+    class <- kNN(xl, z , k=4)
+    points_array = c(points_array, c(z))
+    points(z[1], z[2], pch = 1, col = colors[class])
+    
+    x2<-x2+0.1
+  }
+  x2<-0
+  x1<-x1+0.1
+}
