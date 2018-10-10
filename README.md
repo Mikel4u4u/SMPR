@@ -48,6 +48,8 @@
   
   1NN
   <p>Иллюстрация резултатов работы алгоритмов 1NN и kNN(k=4):</p>
-  <p><img src="1NN.png" alt="результат работы 1NN и kNN"></p>
+    1NN
+  <p><img src="1NN.png" ></p>
+    kNN
   <p><img src="kNN.png"></p>
   
