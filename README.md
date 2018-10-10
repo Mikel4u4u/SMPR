@@ -45,6 +45,6 @@
   <p>Алгоритм kNN отличается от 1NN тем что он относит классифицируемый элемент не к классу ближайшего к нему элемента, а к классу чаще всего встречающемуся среди k ближайших элементов.</p>
   <p>Листинг скрипта на R:<a href='https://github.com/PavlyukovVladimir/SMPR/blob/master/scripts/script_1NN_kNN.R'>script_1NN_kNN.R</a></p>
   <p>Иллюстрация резултатов работы алгоритмов 1NN и kNN(k=4):</p>
-  <p><img src="1NN.jpg" alt="результат работы 1NN и kNN"></p>
+  <p><img src="1NN.png" alt="результат работы 1NN и kNN"></p>
   
   
