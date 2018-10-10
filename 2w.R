@@ -31,16 +31,12 @@ kNN <- function(xl, z, k)
   return (class)
 }
 
-colors <- c("setosa" = "red", "versicolor" = "green3",
-            "virginica" = "blue")
+colors <- c("setosa" = "red", "versicolor" = "green3","virginica" = "blue")
+plot(iris[, 3:4], pch = 21, bg = colors[iris$Species], col
+     = colors[iris$Species], asp = 1)
 
 
-iris30 = iris[sample(c(1:150), 60, replace=FALSE), 3:5]
-
-plot(iris30[, 1:2], pch = 21, bg = colors[iris30$Species],
-     col = colors[iris30$Species])
-
-xl <- iris30[, 1:3]
+xl <- iris[, 3:5]
 
 points_array = c()
 x1<-0
