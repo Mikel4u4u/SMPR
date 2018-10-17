@@ -47,18 +47,18 @@ k <- array(0,dim = l)
 
 
 for (j in 1:l) {
-  
+  # Сортируем массив расстояний до j точки 
   mass1 <- xl[-j, ] 
   
   orderedXl <- sortObjectsByDist(mass1 , xl[j,1:n] )  
-  
+ 
   l <- dim(xl)[1]
   
   n <- dim(xl)[2] - 1
   
   
   for (i in 1:l) {
-   
+  
     k[i] <- k[i] + (xl[ j , n+1 ] !=  kNN( orderedXl  , i) )
   
   }
