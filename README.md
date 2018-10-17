@@ -49,7 +49,7 @@
   <p>Иллюстрация резултатов работы алгоритмов 1NN и kNN(k=4):</p>
     1NN
   <p><img src="1NN.png" ></p>
-    kNN
+    kNN , k = 4
   <p><img src="kNN.png"></p>
   
   ### 2.3. LOO  <a name="aLOO"></a>
