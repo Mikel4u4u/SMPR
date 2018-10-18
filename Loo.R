@@ -6,7 +6,7 @@
 xl <- iris
 l <- dim(xl)[1] 
 n <- dim(xl)[2] - 1
-N <- c(2,3)
+
 
 euclideanDistance <- function(u, v)
 {
