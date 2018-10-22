@@ -69,4 +69,8 @@ for (j in 1:l) {
   k[j]<-k[j]/l
 
 }
-plot(1:l, k, type = 'h', col = "black", xlab = "k", ylab = "Q" )
+
+plot(1:l, k, type = 'h', col = "black", xlab = "k", ylab = "Loo" )
+
+kk <- which.min(k)
+print(kk)
