@@ -4,7 +4,7 @@
   <p><a href="#a1NN">2.1. 1NN</a></p>
   <p><a href="#akNN">2.2. kNN</a></p>
   <p><a href="#aLOO">2.3. LOO</a></p>
-  <p><a href="#akNN">2.2. kwNN</a></p>
+  <p><a href="#akNN">2.4. kwNN</a></p>
   
   ## 1. Вводные определения <a name="Vvonyye_opredeleniya"></a>
   
