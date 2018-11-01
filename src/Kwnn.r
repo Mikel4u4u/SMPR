@@ -33,7 +33,7 @@ kwNN <- function(train, test, cl, k , weightFunc) {
     classes <- cl[order[1:k]]
     
     names(weights) = classes
-    
+    ##Для каждого класса суммируем их вес
     classWeights <- sapply(names(table(classes)), function(class) {
         sum(weights[names(weights) == class])
     })
