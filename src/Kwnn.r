@@ -7,7 +7,7 @@ euclideanDistance <- function(u, v) {
 # возвращает перестановку
 orderByDist <- function(u, xl, metric = euclideanDistance) {
   distances <- c()
-  
+ #nrow(xl) - количество строчек выборки
   for (i in 1:nrow(xl)) {
     distances[i] <-metric(u, xl[i,])
   }
@@ -26,6 +26,7 @@ kwNN <- function(train, test, cl, k , weightFunc) {
   
   res <- c()
   for (i in 1:nrow(test)) {
+    #Сортируем расстояния до точки
     order <- orderByDist(test[i,], train)
     
     ## Получаем классы первых k соседей
@@ -91,7 +92,7 @@ drawKwNN <- function(train, classes, colors) {
   step <- 0.1
   ox <- seq(0, 7, step)
   oy <-seq(0, 3, step)
-  
+  #всевозможные варианты перебора точек
   test <- expand.grid(Petal.Length = ox, Petal.Width = oy)
   
   prediction <- kwNN(train, test, classes, k = 1, weight)
