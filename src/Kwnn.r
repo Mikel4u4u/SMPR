@@ -21,7 +21,7 @@ weight <- function(i, k) {
 }
 
 # kwNN
-kwNN <- function(train, test, cl, k = 1, weightFunc) {
+kwNN <- function(train, test, cl, k , weightFunc) {
   weights <- weightFunc(1:k, k)
   
   res <- c()
