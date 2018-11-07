@@ -21,7 +21,7 @@ weight <- function(i, k) {
 }
 
 # kwNN
-kwNN <- function(train, test, cl, k = 1, weightFunc) {
+kwNN <- function(train, test, cl, k , weightFunc) {
   weights <- weightFunc(1:k, k)
   
   res <- c()
@@ -94,7 +94,7 @@ drawKwNN <- function(train, classes, colors) {
   
   test <- expand.grid(Petal.Length = ox, Petal.Width = oy)
   
-  prediction <- kwNN(train, test, classes, k = 1, weight)
+  prediction <- kwNN(train, test, classes, k = 4, weight)
   
   points(test, pch = 21, col = colors[prediction], asp = 1)
 }
@@ -103,5 +103,5 @@ trainIris <- iris[, 3:4]
 classes <- iris[, 5]
 colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue")
 
-#drawKwNN(trainIris, classes, colors)
-drawLOO(iris)
+drawKwNN(trainIris, classes, colors)
+#drawLOO(iris)
