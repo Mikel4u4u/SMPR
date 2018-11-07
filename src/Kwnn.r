@@ -1,10 +1,10 @@
-# Евклидово расстояние
+# Р•РІРєР»РёРґРѕРІРѕ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
 euclideanDistance <- function(u, v) {
   sqrt(sum((u - v)^2))
 }
 
-# сортировка объектов Xl относительньно произвольного объекта u
-# возвращает перестановку
+# СЃРѕСЂС‚РёСЂРѕРІРєР° РѕР±СЉРµРєС‚РѕРІ Xl РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅСЊРЅРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° u
+# РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРµСЃС‚Р°РЅРѕРІРєСѓ
 orderByDist <- function(u, xl, metric = euclideanDistance) {
   distances <- c()
   
@@ -15,7 +15,7 @@ orderByDist <- function(u, xl, metric = euclideanDistance) {
   return (order(distances))
 }
 
-# функция веса
+# С„СѓРЅРєС†РёСЏ РІРµСЃР°
 weight <- function(i, k) {
   return((k+1-i)/k)
 }
@@ -28,7 +28,7 @@ kwNN <- function(train, test, cl, k , weightFunc) {
   for (i in 1:nrow(test)) {
     order <- orderByDist(test[i,], train)
     
-    ## Получаем классы первых k соседей
+    ## РџРѕР»СѓС‡Р°РµРј РєР»Р°СЃСЃС‹ РїРµСЂРІС‹С… k СЃРѕСЃРµРґРµР№
     classes <- cl[order[1:k]]
     
     names(weights) = classes
@@ -37,7 +37,7 @@ kwNN <- function(train, test, cl, k , weightFunc) {
         sum(weights[names(weights) == class])
     })
  
-    ## Находим класс, который доминирует среди первых k соседей
+    ## РќР°С…РѕРґРёРј РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ РґРѕРјРёРЅРёСЂСѓРµС‚ СЃСЂРµРґРё РїРµСЂРІС‹С… k СЃРѕСЃРµРґРµР№
     class <- names(which.max(classWeights))
     
     res[i] <- class
@@ -52,7 +52,7 @@ LOO <- function(xl) {
   maxk <- 20
   loo <- numeric(maxk)
   
-  # Рассматриваем число возможных соседей от 1 до n-1
+  # Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј С‡РёСЃР»Рѕ РІРѕР·РјРѕР¶РЅС‹С… СЃРѕСЃРµРґРµР№ РѕС‚ 1 РґРѕ n-1
   for (k in 1:maxk) {
     
     for (i in 1:n)   {
@@ -77,14 +77,14 @@ drawLOO <- function(xl) {
   points(bestK, loo[bestK], col = 'green3', bg = 'green3', asp = 1, pch = 21)
   
   legend( x="topright", 
-          legend=c("Скользящий контроль","оптимальное k"), 
+          legend=c("РЎРєРѕР»СЊР·СЏС‰РёР№ РєРѕРЅС‚СЂРѕР»СЊ","РѕРїС‚РёРјР°Р»СЊРЅРѕРµ k k"), 
           col=c("red","green3"), bg=c(NA, 'green3'), lwd=2, lty=c(1,NA), 
           pch=c(NA,19), merge=FALSE, cex=0.8 )
   
   text(bestK, loo[bestK], paste("k=", bestK), col = 'black', pos=3)
 }
 
-# картa	классификации
+# РєР°СЂС‚a	РєР»Р°СЃСЃРёС„РёРєР°С†РёРё
 drawKwNN <- function(train, classes, colors) {
   plot(train, pch = 21, bg = colors[classes], col = colors[classes], asp = 1)
   
