@@ -69,8 +69,7 @@ for (j in 1:l) {
   k[j]<-k[j]/l
 
 }
-
-plot(1:l, k, type = 'h', col = "black", xlab = "k", ylab = "Loo" )
-
 kk <- which.min(k)
-print(kk)
+plot(1:l, k, type = 'h', col = "black", xlab = "k", ylab = "Loo" )
+points(kk, k[kk],type = 'h', col = 'green3')
+text(kk, 0.4 , paste("k=", kk), col = 'black', pos=2)

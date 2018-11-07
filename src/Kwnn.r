@@ -1,13 +1,13 @@
-# Евклидово расстояние
+# Р•РІРєР»РёРґРѕРІРѕ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
 euclideanDistance <- function(u, v) {
   sqrt(sum((u - v)^2))
 }
 
-# сортировка объектов Xl относительньно произвольного объекта u
-# возвращает перестановку
+# СЃРѕСЂС‚РёСЂРѕРІРєР° РѕР±СЉРµРєС‚РѕРІ Xl РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅСЊРЅРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° u
+# РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРµСЃС‚Р°РЅРѕРІРєСѓ
 orderByDist <- function(u, xl, metric = euclideanDistance) {
   distances <- c()
-  
+ #nrow(xl) - РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕС‡РµРє РІС‹Р±РѕСЂРєРё
   for (i in 1:nrow(xl)) {
     distances[i] <-metric(u, xl[i,])
   }
@@ -15,7 +15,7 @@ orderByDist <- function(u, xl, metric = euclideanDistance) {
   return (order(distances))
 }
 
-# функция веса
+# С„СѓРЅРєС†РёСЏ РІРµСЃР°
 weight <- function(i, k) {
   return((k+1-i)/k)
 }
@@ -26,18 +26,19 @@ kwNN <- function(train, test, cl, k , weightFunc) {
   
   res <- c()
   for (i in 1:nrow(test)) {
+    #РЎРѕСЂС‚РёСЂСѓРµРј СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РґРѕ С‚РѕС‡РєРё
     order <- orderByDist(test[i,], train)
     
-    ## Получаем классы первых k соседей
+    ## РџРѕР»СѓС‡Р°РµРј РєР»Р°СЃСЃС‹ РїРµСЂРІС‹С… k СЃРѕСЃРµРґРµР№
     classes <- cl[order[1:k]]
     
     names(weights) = classes
-    
+    ##Р”Р»СЏ РєР°Р¶РґРѕРіРѕ РєР»Р°СЃСЃР° СЃСѓРјРјРёСЂСѓРµРј РёС… РІРµСЃ
     classWeights <- sapply(names(table(classes)), function(class) {
         sum(weights[names(weights) == class])
     })
  
-    ## Находим класс, который доминирует среди первых k соседей
+    ## РќР°С…РѕРґРёРј РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ РґРѕРјРёРЅРёСЂСѓРµС‚ СЃСЂРµРґРё РїРµСЂРІС‹С… k СЃРѕСЃРµРґРµР№
     class <- names(which.max(classWeights))
     
     res[i] <- class
@@ -52,7 +53,7 @@ LOO <- function(xl) {
   maxk <- 20
   loo <- numeric(maxk)
   
-  # Рассматриваем число возможных соседей от 1 до n-1
+  # Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј С‡РёСЃР»Рѕ РІРѕР·РјРѕР¶РЅС‹С… СЃРѕСЃРµРґРµР№ РѕС‚ 1 РґРѕ n-1
   for (k in 1:maxk) {
     
     for (i in 1:n)   {
@@ -77,21 +78,21 @@ drawLOO <- function(xl) {
   points(bestK, loo[bestK], col = 'green3', bg = 'green3', asp = 1, pch = 21)
   
   legend( x="topright", 
-          legend=c("Скользящий контроль","оптимальное k"), 
+          legend=c("РЎРєРѕР»СЊР·СЏС‰РёР№ РєРѕРЅС‚СЂРѕР»СЊ","РѕРїС‚РёРјР°Р»СЊРЅРѕРµ k"), 
           col=c("red","green3"), bg=c(NA, 'green3'), lwd=2, lty=c(1,NA), 
           pch=c(NA,19), merge=FALSE, cex=0.8 )
   
   text(bestK, loo[bestK], paste("k=", bestK), col = 'black', pos=3)
 }
 
-# картa	классификации
+# РєР°СЂС‚a	РєР»Р°СЃСЃРёС„РёРєР°С†РёРё
 drawKwNN <- function(train, classes, colors) {
   plot(train, pch = 21, bg = colors[classes], col = colors[classes], asp = 1)
   
   step <- 0.1
   ox <- seq(0, 7, step)
   oy <-seq(0, 3, step)
-  
+  #РІСЃРµРІРѕР·РјРѕР¶РЅС‹Рµ РІР°СЂРёР°РЅС‚С‹ РїРµСЂРµР±РѕСЂР° С‚РѕС‡РµРє
   test <- expand.grid(Petal.Length = ox, Petal.Width = oy)
   
   prediction <- kwNN(train, test, classes, k = 4, weight)
@@ -103,5 +104,10 @@ trainIris <- iris[, 3:4]
 classes <- iris[, 5]
 colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue")
 
+<<<<<<< HEAD
 drawKwNN(trainIris, classes, colors)
 #drawLOO(iris)
+=======
+#drawKwNN(trainIris, classes, colors)
+drawLOO(iris)
+>>>>>>> aa82e7e77d3ae374bb7246ab841d4b649e3ca4cd
