@@ -52,7 +52,7 @@ LOO <- function(xl) {
   maxk <- 20
   loo <- numeric(maxk)
   
-  # Рассматриваем число возможных соседей от 1 до n-1
+ 
   for (k in 1:maxk) {
     
     for (i in 1:n)   {
