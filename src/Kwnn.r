@@ -91,7 +91,7 @@ drawKwNN <- function(train, classes, colors) {
   step <- 0.1
   ox <- seq(0, 7, step)
   oy <-seq(0, 3, step)
-  
+  # Перебор всех x  и y
   test <- expand.grid(Petal.Length = ox, Petal.Width = oy)
   
   prediction <- kwNN(train, test, classes, k = 4, weight)
