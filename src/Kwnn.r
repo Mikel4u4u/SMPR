@@ -53,7 +53,7 @@ LOO <- function(xl) {
   maxk <- 20
   loo <- numeric(maxk)
   
-  # Рассматриваем число возможных соседей от 1 до n-1
+ 
   for (k in 1:maxk) {
     
     for (i in 1:n)   {
@@ -96,7 +96,11 @@ drawKwNN <- function(train, classes, colors) {
   step <- 0.1
   ox <- seq(0, 7, step)
   oy <-seq(0, 3, step)
+<<<<<<< HEAD
   #всевозможные варианты перебора точек
+=======
+  # Перебор всех x  и y
+>>>>>>> d69678164e3c2895479e25a7a7632b6853d9614b
   test <- expand.grid(Petal.Length = ox, Petal.Width = oy)
   
   prediction <- kwNN(train, test, classes, k = 4, weight)
