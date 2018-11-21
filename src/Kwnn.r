@@ -78,7 +78,11 @@ drawLOO <- function(xl) {
   points(bestK, loo[bestK], col = 'green3', bg = 'green3', asp = 1, pch = 21)
   
   legend( x="topright", 
+<<<<<<< HEAD
           legend=c("Скользящий контроль","оптимальное k"), 
+=======
+          legend=c("Скользящий контроль","оптимальное k k"), 
+>>>>>>> cd4964d83dde11a59d8db1a615114d102ed79419
           col=c("red","green3"), bg=c(NA, 'green3'), lwd=2, lty=c(1,NA), 
           pch=c(NA,19), merge=FALSE, cex=0.8 )
   
@@ -107,7 +111,10 @@ colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue")
 <<<<<<< HEAD
 drawKwNN(trainIris, classes, colors)
 #drawLOO(iris)
+<<<<<<< HEAD
 =======
 #drawKwNN(trainIris, classes, colors)
 drawLOO(iris)
 >>>>>>> aa82e7e77d3ae374bb7246ab841d4b649e3ca4cd
+=======
+>>>>>>> cd4964d83dde11a59d8db1a615114d102ed79419
