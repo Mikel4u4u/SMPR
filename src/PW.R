@@ -1,16 +1,16 @@
-#Евклидово расстояние
+#Р•РІРєР»РёРґРѕРІРѕ СЂР°СЃСЃС‚РѕСЏРЅРёРµ
 dist = function(p1, p2) sqrt(sum((p1 - p2) ^ 2)) 
-#Расстояние от всех points до точки u
+#Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ РІСЃРµС… points РґРѕ С‚РѕС‡РєРё u
 distances = function(points, u) apply(points, 1, dist, u)
 
 
 
-#Ядра
-kernel.R = function(r) 0.5 * (abs(r) <= 1) #прямоугольное
-kernel.T = function(r)(1 - abs(r)) * (abs(r) <= 1) #треугольное
-kernel.Q = function(r)(15 / 16) * (1 - r ^ 2) ^ 2 * (abs(r) <= 1) #квартическое
-kernel.E = function(r)(3 / 4) * (1 - r ^ 2) * (abs(r) <= 1) #епанечниково
-kernel.G = function(r) dnorm(r) #гауссовское
+#РЇРґСЂР°
+kernel.R = function(r) 0.5 * (abs(r) <= 1) #РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРѕРµ
+kernel.T = function(r)(1 - abs(r)) * (abs(r) <= 1) #С‚СЂРµСѓРіРѕР»СЊРЅРѕРµ
+kernel.Q = function(r)(15 / 16) * (1 - r ^ 2) ^ 2 * (abs(r) <= 1) #РєРІР°СЂС‚РёС‡РµСЃРєРѕРµ
+kernel.E = function(r)(3 / 4) * (1 - r ^ 2) * (abs(r) <= 1) #РµРїР°РЅРµС‡РЅРёРєРѕРІРѕ
+kernel.G = function(r) dnorm(r) #РіР°СѓСЃСЃРѕРІСЃРєРѕРµ
 
 
 PW.kernel = kernel.R 
@@ -48,14 +48,14 @@ LOOPW = function(points, classes, hValues) {
   loo = loo / n
 }
 
-#Отрисовка LOO
+#РћС‚СЂРёСЃРѕРІРєР° LOO
 drawLOOPW = function(points, classes, hValues) {
   loo = LOOPW(points, classes, hValues)
   
   x = hValues
   y = loo
   
-  plot(x, y, type = "l", main = "LOO для Парзеновского окна (PW)", xlab = "h", ylab = "LOO", col.lab = "blue")
+  plot(x, y, type = "l", main = "LOO РґР»СЏ РџР°СЂР·РµРЅРѕРІСЃРєРѕРіРѕ РѕРєРЅР° (PW)", xlab = "h", ylab = "LOO", col.lab = "blue")
   
   h = hValues[which.min(loo)]
   h.loo = round(loo[which.min(loo)], 4)
@@ -67,13 +67,13 @@ drawLOOPW = function(points, classes, hValues) {
   return(h)
 }
 
-#Отрисовка карты классификации
+#РћС‚СЂРёСЃРѕРІРєР° РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё
 drawPW = function(points, classes, colors, h) {
   uniqueClasses = unique(classes)
   names(colors) = uniqueClasses
   
 
-    plot(points, bg = colors[classes], pch = 21, asp = 1,main = "Карта классификации PW", col.lab = "blue") 
+    plot(points, bg = colors[classes], pch = 21, asp = 1,main = "РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё PW", col.lab = "blue") 
   
  
   step = 0.1
@@ -100,7 +100,7 @@ drawPW = function(points, classes, colors, h) {
   
 }
 
-#тестируем программу
+#С‚РµСЃС‚РёСЂСѓРµРј РїСЂРѕРіСЂР°РјРјСѓ
 
   petals = iris[, 3:4]
   petalNames = iris[, 5]
