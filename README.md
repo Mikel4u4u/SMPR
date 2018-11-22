@@ -114,7 +114,7 @@ mc.PW = function(distances, u, h) {
     weights = PW.kernel(distances / h)
     classes = unique(names(distances))
 
-    weightsByClass = sapply(classes, sumByClass, weights)
+    weightsByClass = sapply(classes, function(class, arr) { sum(arr[names(arr) == class]) } , weights)
 
     if (max(weightsByClass) == 0) return("") #ни одна точка не попала в окно
 
