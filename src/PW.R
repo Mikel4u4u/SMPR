@@ -100,7 +100,7 @@ drawPW = function(points, classes, colors, h) {
   
 }
 
-#тестируем программу
+
 
   petals = iris[, 3:4]
   petalNames = iris[, 5]
