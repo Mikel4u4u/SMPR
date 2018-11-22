@@ -111,10 +111,10 @@ kwNN отличается от kNN, тем что учитывает поряд�
 Программная реализация алгоритма:
 ```
 mc.PW = function(distances, u, h) {
-    weights = mc.PW.kernel(distances / h)
+    weights = PW.kernel(distances / h)
     classes = unique(names(distances))
 
-    weightsByClass = sapply(classes, mc.sumByClass, weights)
+    weightsByClass = sapply(classes, sumByClass, weights)
 
     if (max(weightsByClass) == 0) return("") #ни одна точка не попала в окно
 
