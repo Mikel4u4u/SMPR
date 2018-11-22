@@ -110,7 +110,7 @@ kwNN отличается от kNN, тем что учитывает поряд�
 
 Программная реализация алгоритма:
 ```
-mc.PW = function(distances, u, h) {
+PW = function(distances, u, h) {
     weights = PW.kernel(distances / h)
     classes = unique(names(distances))
 
