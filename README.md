@@ -125,6 +125,32 @@ PW = function(distances, u, h) {
 `names(distances)` – наименование классов точек выборки.
 
 Параметр ширины `h` раасчитывается с помощью `Loo` :
+```PLOOPW = function(points, classes, hValues) {
+  n = dim(points)[1]
+  loo = rep(0, length(hValues))
+  
+  for (i in 1:n) {
+    u = points[i,]
+    sample = points[-i,]
+    distances = distances(sample, u)
+    names(distances) = classes[-i]
+    
+    for (j in 1:length(hValues)) {
+      h = hValues[j]
+      classified = PW(distances, u, h)
+      loo[j] = loo[j] + (classified != classes[i])
+    }
+  }
+  
+  loo = loo / n
+}
+```
+
+
+
+
+
+
 
 Чаще всего применяются 5 типов ядер:
 - Прямоугольное ![](  http://latex.codecogs.com/svg.latex?%5Clarge%20R%28z%29%20%3D%20%5Cfrac%7B1%7D%7B2%7D%20%5B%7Cz%7C%20%5Cleq%201%5D )
