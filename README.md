@@ -124,7 +124,7 @@ PW = function(distances, u, h) {
 где `distances` – расстояние от точки `u` до всех точек выборки,
 `names(distances)` – наименование классов точек выборки.
 
-Параметр ширины `h` раасчитывается с помощью `Loo` :
+Параметр ширины `h` раасчитывается с помощью `Loo`   `h = hValues[which.min(loo)]`  :
 ```
 LOOPW = function(points, classes, hValues) {
   n = dim(points)[1]
