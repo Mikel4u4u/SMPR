@@ -10,7 +10,7 @@ kernel.R = function(r) 0.5 * (abs(r) <= 1) #прямоугольное
 kernel.T = function(r)(1 - abs(r)) * (abs(r) <= 1) #треугольное
 kernel.Q = function(r)(15 / 16) * (1 - r ^ 2) ^ 2 * (abs(r) <= 1) #квартическое
 kernel.E = function(r)(3 / 4) * (1 - r ^ 2) * (abs(r) <= 1) #епанечниково
-kernel.G = function(r) dnorm(r) #гауссовское
+kernel.G = function(r) dnorm(r) #гауссовское 
 
 
 PW.kernel = kernel.R 
