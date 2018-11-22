@@ -125,7 +125,8 @@ PW = function(distances, u, h) {
 `names(distances)` – наименование классов точек выборки.
 
 Параметр ширины `h` раасчитывается с помощью `Loo` :
-```PLOOPW = function(points, classes, hValues) {
+```
+LOOPW = function(points, classes, hValues) {
   n = dim(points)[1]
   loo = rep(0, length(hValues))
   
