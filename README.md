@@ -162,7 +162,7 @@ LOOPW = function(points, classes, hValues) {
 - Гауссовское (нормальное распределение)
 ![kNN](img/GPW.png)
 
-### 2.5. PF (Потенциальные функции <a name="aPF"></a>
+### 2.5. Потенциальные функции <a name="aPF"></a>
 
 
 
