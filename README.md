@@ -171,7 +171,9 @@ LOOPW = function(points, classes, hValues) {
 , где 
 ![](http://latex.codecogs.com/svg.latex?%5Clarge%20K%28z%29) — функция ядра.
 
-
+Алгоритм для каждого обучающего объекта _x_ строит
+окружность, радиуса _h_ и силы воздействия (потенциала)
+![](http://latex.codecogs.com/svg.latex?%5Cgamma_i).
 
 
 
