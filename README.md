@@ -164,6 +164,23 @@ LOOPW = function(points, classes, hValues) {
 
 ### 2.5. Потенциальные функции <a name="aPF"></a>
 
+Для оценки близости объекта _u_ к классу _y_ алгоритм использует следующую
+функцию:
+
+![](http://latex.codecogs.com/svg.latex?W_y%28i%2C%20u%29%20%3D%20%5Cgamma_i%20%5Ccdot%20K%28%5Cfrac%7B%5Crho%28u%2C%20x_u%5Ei%29%7D%7Bh_i%7D%29%2C%20%5Cgamma_i%20%5Cgeq%200%2C%20h_i%20%3E%200)
+, где 
+![](http://latex.codecogs.com/svg.latex?%5Clarge%20K%28z%29) — функция ядра.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
