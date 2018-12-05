@@ -175,8 +175,24 @@ LOOPW = function(points, classes, hValues) {
 окружность, радиуса _h_ и силы воздействия (потенциала)
 ![](http://latex.codecogs.com/svg.latex?%5Cgamma_i).
 
+Программная реализация функции классификации:
+```
+mc.PF = function(distances, potentials, h) {
+    weights = potentials * mc.PF.kernel(distances / h)
+    classes = unique(names(distances))
 
+    weightsByClass = sapply(classes, mc.sumByClass, weights)
 
+    if (max(weightsByClass) == 0) return("") #ни одна точка не попала в окно
+
+    return(names(which.max(weightsByClass)))
+}
+```
+Однако, прежде, чем использовать потенциалы, их необходимо подобрать. 
+Изачально потенциалы заполняются нулями. Далее, пока количество ошибок классификации
+не достигнет нужного предела, выбираем случайно точку _x_ из выборки. Если для нее
+классификация выполняется неверно, увеличиваем потенциал на 1 и пересчитываем
+общее количество ошибок.
 
 
 
