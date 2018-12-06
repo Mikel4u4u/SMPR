@@ -177,8 +177,8 @@ LOOPW = function(points, classes, hValues) {
 
 Программная реализация функции классификации:
 ```
-mc.PF = function(distances, potentials, h) {
-    weights = potentials * mc.PF.kernel(distances / h)
+PF = function(distances, potentials, h) {
+    weights = potentials * PF.kernel(distances / h)
     classes = unique(names(distances))
 
     weightsByClass = sapply(classes, mc.sumByClass, weights)
