@@ -198,7 +198,7 @@ PF = function(distances, potentials, h) {
 ![Потенциалы PF...](img/PF.png)
 
 
-Ядро  <a href="img/Rplot.png">kгаусовское</a>   
+Ядро  <a href="img/Rplot.png">гаусовское</a>   
 
 
 
