@@ -1,4 +1,4 @@
-## Восстановление центра нормального распределения
+## Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ С†РµРЅС‚СЂР° РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ
 estimateMu <- function(objects)
 {
  
@@ -11,7 +11,7 @@ estimateMu <- function(objects)
   }
   return(mu)
 }
-## Восстановление ковариационной матрицы нормального распределения
+## Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РєРѕРІР°СЂРёР°С†РёРѕРЅРЅРѕР№ РјР°С‚СЂРёС†С‹ РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ
 estimateCovarianceMatrix <- function(objects, mu)
 {
   rows <- dim(objects)[1]
@@ -24,7 +24,7 @@ estimateCovarianceMatrix <- function(objects, mu)
   }
   return (sigma)
 }
-## Получение коэффициентов подстановочного алгоритма
+## РџРѕР»СѓС‡РµРЅРёРµ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ РїРѕРґСЃС‚Р°РЅРѕРІРѕС‡РЅРѕРіРѕ Р°Р»РіРѕСЂРёС‚РјР°
 getPlugInDiskriminantCoeffs <- function(mu1, sigma1, mu2,
                                         sigma2)
 {
@@ -45,27 +45,27 @@ getPlugInDiskriminantCoeffs <- function(mu1, sigma1, mu2,
   return (c("x^2" = a, "xy" = b, "y^2" = c, "x" = d, "y"
             = e, "1" = f))
 }
-## Количество объектов в каждом классе
+## РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ РІ РєР°Р¶РґРѕРј РєР»Р°СЃСЃРµ
 ObjectsCountOfEachClass <- 100
 
-## Подключаем библиотеку MASS для генерации многомерного
+## РџРѕРґРєР»СЋС‡Р°РµРј Р±РёР±Р»РёРѕС‚РµРєСѓ MASS РґР»СЏ РіРµРЅРµСЂР°С†РёРё РјРЅРѕРіРѕРјРµСЂРЅРѕРіРѕ
 
 library(MASS)
-## Генерируем тестовые данные
+## Р“РµРЅРµСЂРёСЂСѓРµРј С‚РµСЃС‚РѕРІС‹Рµ РґР°РЅРЅС‹Рµ
 Sigma1 <- matrix(c(10, 0, 0, 1), 2, 2)
 Sigma2 <- matrix(c(100, 0, 0, 5), 2, 2)
 Mu1 <- c(1, 0)
 Mu2 <- c(20, 0)
 xy1 <- mvrnorm(n=ObjectsCountOfEachClass, Mu1, Sigma1)
 xy2 <- mvrnorm(n=ObjectsCountOfEachClass, Mu2, Sigma2)
-## Собираем два класса в одну выборку
+## РЎРѕР±РёСЂР°РµРј РґРІР° РєР»Р°СЃСЃР° РІ РѕРґРЅСѓ РІС‹Р±РѕСЂРєСѓ
 xl <- rbind(cbind(xy1, 1), cbind(xy2, 2))
-## Рисуем обучающую выборку
+## Р РёСЃСѓРµРј РѕР±СѓС‡Р°СЋС‰СѓСЋ РІС‹Р±РѕСЂРєСѓ
 colors <- c(rgb(0/255, 162/255, 232/255), rgb(0/255,
                                               200/255, 0/255))
 plot(xl[,1], xl[,2], pch = 21, bg = colors[xl[,3]], asp =
        1)
-## Оценивание
+## РћС†РµРЅРёРІР°РЅРёРµ
 objectsOfFirstClass <- xl[xl[,3] == 1, 1:2]
 objectsOfSecondClass <- xl[xl[,3] == 2, 1:2]
 
@@ -77,7 +77,7 @@ sigma2 <- estimateCovarianceMatrix(objectsOfSecondClass,
                                    mu2)
 coeffs <- getPlugInDiskriminantCoeffs(mu1, sigma1, mu2,
                                       sigma2)
-## Рисуем дискриминантую функцию – красная линия
+## Р РёСЃСѓРµРј РґРёСЃРєСЂРёРјРёРЅР°РЅС‚СѓСЋ С„СѓРЅРєС†РёСЋ вЂ“ РєСЂР°СЃРЅР°СЏ Р»РёРЅРёСЏ
 x <- y <- seq(-10, 20, len=100)
 z <- outer(x, y, function(x, y) coeffs["x^2"]*x^2 +
              coeffs["xy"]*x*y
