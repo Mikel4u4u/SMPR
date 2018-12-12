@@ -30,12 +30,12 @@ lines_draw = function(mu, cov, what=1, title) {
         pos = pos + 1
       }
     }
-    plot(mat[,1], mat[,2], col=mat[,3], pch=22, main=title, asp=1, xlab="Первый признак", ylab="Второй признак")
+    plot(mat[,1], mat[,2], col=mat[,3], pch=22, main=title, asp=1, xlab="РџРµСЂРІС‹Р№ РїСЂРёР·РЅР°Рє", ylab="Р’С‚РѕСЂРѕР№ РїСЂРёР·РЅР°Рє")
   }
 }
 
 
-#lines_draw(c(0,0), matrix(c(1,0,0,1), nrow=2, ncol=2), 1, title="Признаки имеют одинаковые дисперсии")
-lines_draw(c(0,0), matrix(c(1,1,0,1), nrow=2, ncol=2), 1, title="Признаки коррелированы")
-# lines_draw(c(0,0), matrix(c(3,0,0,1), nrow=2, ncol=2), 1, title="Признаки некоррелированы")
-# lines_draw(c(0,0), matrix(c(1,0,0,3), nrow=2, ncol=2), 1, title="Признаки некоррелированы")
+#lines_draw(c(0,0), matrix(c(1,0,0,1), nrow=2, ncol=2), 1, title="РџСЂРёР·РЅР°РєРё РёРјРµСЋС‚ РѕРґРёРЅР°РєРѕРІС‹Рµ РґРёСЃРїРµСЂСЃРёРё")
+lines_draw(c(0,0), matrix(c(1,1,0,1), nrow=2, ncol=2), 1, title="РџСЂРёР·РЅР°РєРё РєРѕСЂСЂРµР»РёСЂРѕРІР°РЅС‹")
+# lines_draw(c(0,0), matrix(c(3,0,0,1), nrow=2, ncol=2), 1, title="РџСЂРёР·РЅР°РєРё РЅРµРєРѕСЂСЂРµР»РёСЂРѕРІР°РЅС‹")
+# lines_draw(c(0,0), matrix(c(1,0,0,3), nrow=2, ncol=2), 1, title="РџСЂРёР·РЅР°РєРё РЅРµРєРѕСЂСЂРµР»РёСЂРѕРІР°РЅС‹")
