@@ -313,7 +313,7 @@ estimateCovarianceMatrix = function(points, mu) {
 
 
 
-![](IMG/plug-in-1.png)
+![](img/plug-in-1.png)
 
 
 | Метод         | Параметра          | Количество ошибок (Loo) |
