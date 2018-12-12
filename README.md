@@ -274,6 +274,56 @@ _разделяющей поверхности_.
 
 ![](img/line3.png)
 
+### Подстановочный алгоритм (Plug-in)
+
+__Подстановочный алгоритм__ относится к нормальному дискриминантному анализу.
+
+Чтобы узнать _плотности распределения классов_, алогритм восстанавливает
+неизвестные параметры
+![](http://latex.codecogs.com/svg.latex?%5Cmu%2C%20%5CSigma)
+по следующим формулам для каждого класса _y_ :
+
+![](http://latex.codecogs.com/svg.latex?%5Chat%7B%5Cmu%7D%20%3D%20%5Cfrac%7B1%7D%7Bl_y%7D%20%24%24%5Csum_%7Bi%20%3D%201%7D%5E%7Bl_y%7D%20x_i%24%24)
+
+```
+estimateMu = function(points) {
+    rows = dim(points)[1]
+    cols = dim(points)[2]
+    mu = matrix(NA, 1, cols)
+    for (col in 1:cols) {
+        mu[1, col] = mean(points[, col])
+    }
+    return(mu)
+}
+```
+
+![](http://latex.codecogs.com/svg.latex?%5Chat%7B%5CSigma%7D%20%3D%20%5Cfrac%7B1%7D%7Bl_y%20-%201%7D%20%24%24%5Csum_%7Bi%20%3D%201%7D%5E%7Bl_y%7D%20%28x_i%20-%20%5Chat%7B%5Cmu%7D%29%28x_i%20-%20%5Chat%7B%5Cmu%7D%29%5ET).
+
+```
+estimateCovarianceMatrix = function(points, mu) {
+    rows = dim(points)[1]
+    cols = dim(points)[2]
+    covar = matrix(0, cols, cols)
+    for (i in 1:rows) {
+        covar = covar + (t(points[i,] - mu) %*% (points[i,] - mu)) / (rows - 1)
+    }
+    return(covar)
+}
+```
+
+#### Оценка алгоритма
+
+Протестируем алгоритм на двух сгенерированных на основе нормального распределения
+выборках, посмотрим, насколько восстановленные значения отличаются от исходных,
+и какие разделяющие поверхности между классами он нарисует.
+
+Программа доступна по ссылке:
+[shinyapps.io](https://orlova-tatiana.shinyapps.io/plug-in/).
+
+Алгоритм довольно точно восстанавливает _ковариационную матрицу_ и
+_мат. ожидание_ объектов выборки.
+
+![](IMG/plug-in-1.png)
 
 
 | Метод         | Параметра          | Количество ошибок (Loo) |
