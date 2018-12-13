@@ -13,7 +13,7 @@ lines_draw = function(mu, cov, what=1, title) {
   E = (b*mu1 + c*mu1 - 2*a*mu2)/det
   f = (d*mu1*mu1-b*mu1*mu2-c*mu1*mu2+a*mu2*mu2)/det
   
-  x = y = seq(-4, 4, 8 / 200)
+  x = y = seq(-4, 4, 0.04 )
   
   z = outer(x, y, function(x, y) 1/sqrt(2*pi*d) * exp(-1/2 * (A*x*x+B*y*x+C*y*y+D*x+E*y+f)))
   
