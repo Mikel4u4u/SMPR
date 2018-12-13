@@ -185,7 +185,7 @@ PF = function(distances, potentials, h) {
     weights = potentials * PF.kernel(distances / h)
     classes = unique(names(distances))
 
-    weightsByClass = sapply(classes, mc.sumByClass, weights)
+    weightsByClass = sapply(classes, sumByClass, weights)
 
     if (max(weightsByClass) == 0) return("") #ни одна точка не попала в окно
 
