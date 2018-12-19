@@ -31,7 +31,7 @@ for(i in 1:m){
 }
 
 colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue")
-plot(iris[, 3:4], pch = 21, bg = colors[iris$Species], col = colors[iris$Species], asp = 1, xlab = "ширина", ylab = "длина", main = "наивный баесовский ")
+plot(iris[, 3:4], pch = 21, bg = colors[iris$Species], col = colors[iris$Species], asp = 1, xlab = "Petal Length", ylab = "Petal Width", main = "Наивный баесовский алгоритм ")
 
 a=0
 b=0
