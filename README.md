@@ -477,66 +477,63 @@ if (abs(Qprev - Q) / abs(max(Qprev, Q)) < 1e-5)
 ![](http://latex.codecogs.com/svg.latex?x%5Ej)
 – _j_-й признак.
 
-В обобщенном виде алгоритм _стохастического градиента_ выглядит следующим образом:
+Рассмотрим пример стохастического градиента для ADALINE
 
 ```
-stoh = function(xl, classes, L, updateRule) {
-    #изначальная настройка алгоритма
-    rows = dim(xl)[1]
-    cols = dim(xl)[2]
-    w = runif(cols, -1 / (2 * cols), 1 / (2 * cols))
-    lambda = 1 / rows
-
-    # начальное Q
-    Q = 0
-    for (i in 1:rows) {
-        margin = sum(w * xl[i,]) * classes[i]
-        Q = Q + L(margin)
+sg.ADALINE <- function(xl, eta = 1, lambda = 1/6)
+{
+  l <- dim(xl)[1]
+  n <- dim(xl)[2] - 1
+  w <- c(1/2, 1/2, 1/2)
+  iterCount <- 0
+  ## initialize Q
+  Q <- 0
+  for (i in 1:l)
+  {
+    ## calculate the scalar product <w,x>
+    wx <- sum(w * xl[i, 1:n])
+    ## calculate a margin
+    margin <- wx * xl[i, n + 1]
+    Q <- Q + lossQuad(margin)
+  }
+  repeat
+  {
+    
+    margins <- array(dim = l)
+    33
+    for (i in 1:l)
+    {
+      xi <- xl[i, 1:n]
+      yi <- xl[i, n + 1]
+      margins[i] <- crossprod(w, xi) * yi
     }
-    Q.prev = Q
-
-    iter = 0
-    repeat {
-        iter = iter + 1
-
-        # выбрать объекты с ошибкой
-        margins = rep(0, rows)
-        for (i in 1:rows) {
-            xi = xl[i,]
-            yi = classes[i]
-            margins[i] = sum(w * xi) * yi
-        }
-        errorIndecies = which(margins <= 0)
-
-        #выходим, если выборки полностью разделены
-        if (length(errorIndecies) == 0) break
-
-        # выбираем случайный ошибочный объект          
-        i = sample(errorIndecies, 1)
-        xi = xl[i,]
-        yi = classes[i]
-
-        # высчитываем ошибку
-        margin = sum(w * xi) * yi
-        error = L(margin)
-
-        # обновляем веса
-        eta = 1 / iter
-        w = updateRule(w, eta, xi, yi)
-
-        # новое Q
-        Q = (1 - lambda) * Q + lambda * error
-
-        # выходим, если Q стабилизировалось
-        if (abs(Q.prev - Q) / abs(max(Q.prev, Q)) < 1e-5) break
-
-        # выходим, если слишком много итераций (алгоритм парализован)
-        if (iter == 20000) break
-
-        Q.prev = Q #запоминаем Q на предыдущем шаге
+    ## select the error objects
+    errorIndexes <- which(margins <= 0)
+    if (length(errorIndexes) > 0)
+    {
+      # select the random index from the errors
+      i <- sample(errorIndexes, 1)
+      iterCount <- iterCount + 1
+      xi <- xl[i, 1:n]
+      yi <- xl[i, n + 1]
+      ## calculate the scalar product <w,xi>
+      wx <- sum(w * xi)
+      ## make a gradient step
+      margin <- wx * yi
+      ## calculate an error
+      ex <- lossQuad(margin)
+      eta <- 1 / sqrt(sum(xi * xi))
+      w <- w - eta * (wx - yi) * xi
+      ## Calculate a new Q
+      Qprev <- Q
+      Q <- (1 - lambda) * Q + lambda * ex
     }
-
-    return(w)
+    else
+    {
+      break
+    }
+  }
+  return (w)
 }
 ```
 
