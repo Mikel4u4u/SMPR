@@ -549,9 +549,9 @@ stoh = function(xl, classes, L, updateRule) {
 
 Имеет _квадратичную функцию потерь_
 ![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29%3D%28M-1%29%5E2%3D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i-1%29%5E2)
-и _дельта-правило_ правило обновления весов   ``` ((x-1)^2) ```
+и _дельта-правило_ правило обновления весов  
 ![](http://latex.codecogs.com/svg.latex?w%3Dw-%5Ceta%28%5Clangle%20w%2Cx_i%20%5Crangle-y_i%29x_i).
-``` w <- w - eta * (wx - yi) * xi ``` 
+
 
 
 #### Персептрон Розенблатта
