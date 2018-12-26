@@ -486,7 +486,7 @@ sg.ADALINE <- function(xl, eta = 1, lambda = 1/6)
   n <- dim(xl)[2] - 1
   w <- c(1/2, 1/2, 1/2)
   iterCount <- 0
-  ## initialize Q
+  # начальное Q
   Q <- 0
   for (i in 1:l)
   {
@@ -500,34 +500,35 @@ sg.ADALINE <- function(xl, eta = 1, lambda = 1/6)
   {
     
     margins <- array(dim = l)
-    33
+    
     for (i in 1:l)
     {
       xi <- xl[i, 1:n]
       yi <- xl[i, n + 1]
       margins[i] <- crossprod(w, xi) * yi
     }
-    ## select the error objects
+    # выбрать объекты с ошибкой
     errorIndexes <- which(margins <= 0)
     if (length(errorIndexes) > 0)
     {
-      # select the random index from the errors
+      # выбрать случайный индекс из  ошибок select the random index from the errors
       i <- sample(errorIndexes, 1)
       iterCount <- iterCount + 1
       xi <- xl[i, 1:n]
       yi <- xl[i, n + 1]
-      ## calculate the scalar product <w,xi>
       wx <- sum(w * xi)
-      ## make a gradient step
       margin <- wx * yi
-      ## calculate an error
+      # высчитываем ошибку
       ex <- lossQuad(margin)
       eta <- 1 / sqrt(sum(xi * xi))
       w <- w - eta * (wx - yi) * xi
-      ## Calculate a new Q
+      # Расчитываем новое  Q
       Qprev <- Q
       Q <- (1 - lambda) * Q + lambda * ex
+      # выходим, если Q стабилизировалось
+      if (abs(Q.prev - Q) / abs(max(Q.prev, Q)) < 1e-5) break
     }
+     #выходим, если выборки полностью разделены
     else
     {
       break
