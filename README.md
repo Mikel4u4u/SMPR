@@ -577,7 +577,7 @@ stoh = function(xl, classes, L, updateRule) {
 
 1. Разделенные между собой параллельные друг другу выборки.
 
-![](img/Linear.png)
+![](img/liniercl.png)
 
 
 | Метод         | Параметра          | Количество ошибок (Loo) |
