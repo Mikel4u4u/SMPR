@@ -511,7 +511,7 @@ sg.ADALINE <- function(xl, eta = 1, lambda = 1/6)
     errorIndexes <- which(margins <= 0)
     if (length(errorIndexes) > 0)
     {
-      # выбрать случайный индекс из  ошибок select the random index from the errors
+      # выбрать случайный индекс из  ошибок
       i <- sample(errorIndexes, 1)
       iterCount <- iterCount + 1
       xi <- xl[i, 1:n]
