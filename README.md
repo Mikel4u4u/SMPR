@@ -10,9 +10,9 @@
   
   <p><a href="#aBaes">3. Байесовские классификаторы</a></p>
   <p><a href="#aNormal">3.1. Нормальный дискриминантный анализ</a></p>
-  <p><a href="#aNNBaes">3.1 Наивный байесовские алгоритм</a></p>
+  <p><a href="#aNNBaes">3.1.1 Наивный байесовские алгоритм</a></p>
   <p><a href="#aPlug">3.2. Подстановочный алгоритм</a></p>
-  
+  <p><a href="#aLinear">4. Линейные классификаторы</a></p>
   ## 1. Вводные определения <a name="Vvonyye_opredeleniya"></a>
   
   <p>Задано множество объектов X, и множество допустимых ответов Y, и существует целевая функция y*: X -> Y, значения которой y<sub>i</sub> = y*(x<sub>i</sub>) известны только на конечном подмножестве объектов {x<sub>1</sub>, …, x<sub>ℓ</sub>} ⊂ X.</p>
@@ -205,7 +205,7 @@ PF = function(distances, potentials, h) {
 
 Ядро  <a href="img/Rplot.png">гаусовское</a>   
 
-## Байесовские классификаторы <a name="aBaes"></a>
+## 3.Байесовские классификаторы <a name="aBaes"></a>
 
 Байесовский подход к классификации основан на теореме, утверждающей,
 что если плотности распределения каждого из классов известны,
@@ -369,6 +369,215 @@ _Разделяющая кривая  элипс_
 _Разделяющая кривая  гипербола_
 ![](img/plugin3.png)
 
+## 4.Линейные классификаторы <a name="aLinear"></a>
+Пусть ![](http://latex.codecogs.com/svg.latex?X%20%3D%20%5Cmathbb%7BR%7D%5En)
+и ![](http://latex.codecogs.com/svg.latex?Y%20%3D%20%5C%7B-1%3B&plus;1%5C%7D).
+Алгоритм
+
+![](http://latex.codecogs.com/svg.latex?a%28x%2Cw%29%3D%20%5Ctext%7Bsign%7Df%28x%2Cw%29%3D%5Ctext%7Bsign%7D%20%28%5Clangle%20w%2Cx%20%5Crangle-w_0%29%2Cw%20%5Cin%20%5Cmathbb%7BR%7D%5En)
+
+является __линейным алгоритмом классификации__.
+Если _f_>0, то алгоритм _a_ относит _x_ к классу +1. Иначе к классу -1.
+
+Отсюда
+![](http://latex.codecogs.com/svg.latex?%5Clangle%20w%2Cx%20%5Crangle%3D0)
+называется __уравнением разделяющей поверхности__.
+
+Параметр ![](http://latex.codecogs.com/svg.latex?w_0) иногда опускают. Однако в таком
+случае разделяющая поверхность (в нашем случае с 2мя признаками – прямая),
+соответствующая уравнению
+![](http://latex.codecogs.com/svg.latex?%5Clangle%20w%2Cx%20%5Crangle%3D0),
+будет всегда проходить через начало координат. Чтобы избежать такого обобщения,
+будем полагать, что среди признаков _x_ есть константа
+![](http://latex.codecogs.com/svg.latex?f_j%28x%29%20%5Cequiv%20-1),
+тогда роль свобоного коэффициента ![](http://latex.codecogs.com/svg.latex?w_0)
+играет параметр ![](http://latex.codecogs.com/svg.latex?w_j).
+Тогда разделяющая поверхность имеет вид
+![](http://latex.codecogs.com/svg.latex?%5Clangle%20w%2Cx%20%5Crangle=w_j).
+
+Величина
+![](http://latex.codecogs.com/svg.latex?M_i%28w%29%3Dy_i%5Clangle%20x_i%2Cw%20%5Crangle)
+называется __отступом__ объекта относительно алгоритма классификации. Если
+![](http://latex.codecogs.com/svg.latex?M_i%28w%29%3C0),
+алгоритм совершает на объекте
+![](http://latex.codecogs.com/svg.latex?x_i)
+ошибку.
+
+![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29)
+– монотонно невозрастающая __функция потерь__, мажорирует пороговую функцию
+![](http://latex.codecogs.com/svg.latex?%5BM%3C0%5D%20%5Cleq%20%5Cmathcal%7BL%7D%28M%29).
+Тогда __минимизацю суммарных потерь__ можно рассматривать как функцию вида
+![](http://latex.codecogs.com/svg.latex?%5Ctilde%7BQ%7D%28w%2CX%5E%5Cell%29%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%28M_i%28w%29%29%5Crightarrow%20%5Cmin_w)
+
+#### Метод стохастического градиента
+
+Для минимизации
+![](http://latex.codecogs.com/svg.latex?Q%28w%29)
+применяется __метод градиентного спуска__.
+
+В начале выбирается некоторое _начальное приближение вектора весов_ _w_.
+Не существует единого способа инициализации весов. Хорошей практикой считается
+инициализировать веса случайными малыми значениями:
+![](http://latex.codecogs.com/svg.latex?w_j%3A%3D%5Ctext%7Brandom%7D%28-%5Cfrac%7B1%7D%7B2n%7D%2C&plus;%5Cfrac%7B1%7D%7B2n%7D%29)
+, где _n_ – количество признаков _x_.
+
+Далее высчитывается _текущая оценка функционала_
+![](http://latex.codecogs.com/svg.latex?Q%3A%3D%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%7BL%7D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%29)
+
+Затем запускается итерационный процесс, на каждом шаге которого вектор _w_
+изменяется в сторону наиболее быстрого убывания _Q_. Это направление противоположно
+вектору градиента
+![](http://latex.codecogs.com/svg.latex?Q%27%28w%29). Соответственно веса меняются по
+правилу:
+
+![](http://latex.codecogs.com/svg.latex?w%3A%3Dw-%5Ceta%20Q%27%28w%29)
+
+или
+
+![](http://latex.codecogs.com/svg.latex?w%3A%3Dw-%5Ceta%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%7BL%7D%27%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%29x_iy_i),
+
+где
+![](http://latex.codecogs.com/svg.latex?%5Ceta%3E0)
+– __темп обучения__. Чтобы не проскочить локальный минимум темп обучания принято
+полагать небольшим. Однако, при слишком маленьком его значении алгоритм будет
+медленно сходится. Хорошей практикой считается его постепенное уменьшение по ходу
+итераций. Мы же будем полагать его равным
+![](http://latex.codecogs.com/svg.latex?%5Cfrac%7B1%7D%7B%5Ctext%7Biteration%7D%7D).
+
+__Критерий останова__ основан на приблизительной оценке _Q_ методом
+_экспоненциальной скользящей средней_:
+
+![](http://latex.codecogs.com/svg.latex?Q%3D%281-%5Clambda%29Q&plus;%5Clambda%20%5Cvarepsilon_i)
+,
+
+где
+![](http://latex.codecogs.com/svg.latex?%5Cvarepsilon_i%3D%5Cmathcal%7BL%7D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%29)
+– __ошибка__ алгоритма на случайном элементе
+![](http://latex.codecogs.com/svg.latex?x_i),
+
+![](http://latex.codecogs.com/svg.latex?%5Clambda) – __параметр сглаживания__,
+полагаем его равным
+![](http://latex.codecogs.com/svg.latex?%5Cfrac%7B1%7D%7B%5Cell%7D).
+
+Алгоритм может остановиться в двух случаях:
+
+1. Он не допускает ошибки ни на каком элементе;
+2. Значение _Q_ стабилизировано, то есть
+![](http://latex.codecogs.com/svg.latex?%5Cfrac%7B%7CQ_%7Bprev%7D-Q%7C%7D%7B%5Cmax%28Q_%7Bprev%7D%2CQ%29%7D%20%5Cleq%201e-5).
+
+<u>Примечание.</u> Градиентный метод чувствителен к масштабу измерения признаков.
+Если норма _x_ большая, итерационный процесс может оказаться парализованным.
+Чтобы этого не произошло, рекомендуется _нормализовать_ признаки:
+
+![](http://latex.codecogs.com/svg.latex?x%5Ej%3A%3D%5Cfrac%7Bx%5Ej-x%5Ej_%5Ctext%7Bmin%7D%7D%7Bx%5Ej_%5Ctext%7Bmax%7D-x%5Ej_%5Ctext%7Bmin%7D%7D)
+, где
+![](http://latex.codecogs.com/svg.latex?x%5Ej)
+– _j_-й признак.
+
+В обобщенном виде алгоритм _стохастического градиента_ выглядит следующим образом:
+
+```
+stoh = function(xl, classes, L, updateRule) {
+    #изначальная настройка алгоритма
+    rows = dim(xl)[1]
+    cols = dim(xl)[2]
+    w = runif(cols, -1 / (2 * cols), 1 / (2 * cols))
+    lambda = 1 / rows
+
+    # начальное Q
+    Q = 0
+    for (i in 1:rows) {
+        margin = sum(w * xl[i,]) * classes[i]
+        Q = Q + L(margin)
+    }
+    Q.prev = Q
+
+    iter = 0
+    repeat {
+        iter = iter + 1
+
+        # выбрать объекты с ошибкой
+        margins = rep(0, rows)
+        for (i in 1:rows) {
+            xi = xl[i,]
+            yi = classes[i]
+            margins[i] = sum(w * xi) * yi
+        }
+        errorIndecies = which(margins <= 0)
+
+        #выходим, если выборки полностью разделены
+        if (length(errorIndecies) == 0) break
+
+        # выбираем случайный ошибочный объект          
+        i = sample(errorIndecies, 1)
+        xi = xl[i,]
+        yi = classes[i]
+
+        # высчитываем ошибку
+        margin = sum(w * xi) * yi
+        error = L(margin)
+
+        # обновляем веса
+        eta = 1 / iter
+        w = updateRule(w, eta, xi, yi)
+
+        # новое Q
+        Q = (1 - lambda) * Q + lambda * error
+
+        # выходим, если Q стабилизировалось
+        if (abs(Q.prev - Q) / abs(max(Q.prev, Q)) < 1e-5) break
+
+        # выходим, если слишком много итераций (алгоритм парализован)
+        if (iter == 20000) break
+
+        Q.prev = Q #запоминаем Q на предыдущем шаге
+    }
+
+    return(w)
+}
+```
+
+Следующие алгоритмы за основу берут _стохастический градиент_, меняя только
+функцию потерь
+![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D)
+и правило обновления весов.
+
+#### Адаптивный линейный элемент (adaline)
+
+Имеет _квадратичную функцию потерь_
+![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29%3D%28M-1%29%5E2%3D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i-1%29%5E2)
+и _дельта-правило_ правило обновления весов
+![](http://latex.codecogs.com/svg.latex?w%3Dw-%5Ceta%28%5Clangle%20w%2Cx_i%20%5Crangle-y_i%29x_i).
+
+#### Персептрон Розенблатта
+
+Имеет _кусочно-линейную функцию потерь_
+![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%3D%28-M%29_&plus;%3D%5Cmax%28-M%2C0%29)
+и _правило Хебба_ для обновления весов
+![](http://latex.codecogs.com/svg.latex?%5Ctext%7Bif%20%7D%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%3C0%20%5Ctext%7B%20then%20%7D%20w%3A%3Dw&plus;%5Ceta%20x_iy_i).
+
+#### Логистическая регрессия
+
+Также является __оптимальный байесовским классификатором__ из-за своих довольно
+сильных вероятностных предположений.
+
+Имеет _логистическую функцию потерь_
+![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29%20%3D%20%5Clog_2%281%20&plus;%20e%5E%7B-M%7D%29)
+и _логистическое_ правило обновления весов
+![](http://latex.codecogs.com/svg.latex?w%20%3A%3D%20w&plus;%5Ceta%20y_ix_i%5Csigma%28-%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%29)
+, где
+![](http://latex.codecogs.com/svg.latex?%5Csigma%28z%29%3D%5Cfrac%7B1%7D%7B1&plus;e%5E%7B-z%7D%7D)
+– _сигмоидная функция_.
+
+#### Вывод по линейным классификаторам
+
+
+
+Рассмотрим примеры работы:
+
+1. Разделенные между собой параллельные друг другу выборки.
+
+![](img/Linear.png)
 
 
 | Метод         | Параметра          | Количество ошибок (Loo) |
