@@ -490,9 +490,9 @@ sg.ADALINE <- function(xl, eta = 1, lambda = 1/6)
   Q <- 0
   for (i in 1:l)
   {
-    ## calculate the scalar product <w,x>
+    ## считаем скалярное произведение <w,x>
     wx <- sum(w * xl[i, 1:n])
-    ## calculate a margin
+    ## считаем отступ 
     margin <- wx * xl[i, n + 1]
     Q <- Q + lossQuad(margin)
   }
