@@ -7,6 +7,7 @@
   <p><a href="#akwNN">2.4. kwNN</a></p>
   <p><a href="#aPW">2.5. Парзеновские окна</a></p>
   <p><a href="#aPF">2.6. Потенциальные функции</a></p>
+  <p><a href="#aStolp">2.7. Stolp</a></p>
   
   <p><a href="#aBaes">3. Байесовские классификаторы</a></p>
   <p><a href="#aNormal">3.1. Нормальный дискриминантный анализ</a></p>
@@ -205,6 +206,9 @@ PF = function(distances, potentials, h) {
 
 
 Ядро  <a href="img/Rplot.png">гаусовское</a>   
+
+### 2.6. STOLP <a name="aStolp"></a>
+
 
 ## 3.Байесовские классификаторы <a name="aBaes"></a>
 
