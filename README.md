@@ -233,6 +233,10 @@ PF = function(distances, potentials, h) {
 ![](http://latex.codecogs.com/svg.latex?W_y%28x_i%29) является весовой
 функцией и зависит от выбранного алгоритма классификации.
 
+![](img/Margin.png)
+
+
+![](img/Stop.png)
 
 
 ## 3.Байесовские классификаторы <a name="aBaes"></a>
