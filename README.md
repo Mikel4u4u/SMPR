@@ -13,6 +13,7 @@
   <p><a href="#aNormal">3.1. Нормальный дискриминантный анализ</a></p>
   <p><a href="#aNNBaes">3.1.1 Наивный байесовские алгоритм</a></p>
   <p><a href="#aPlug">3.2. Подстановочный алгоритм</a></p>
+  <p><a href="#aЛДФ">3.3. ЛДФ</a></p>
   <p><a href="#aLinear">4. Линейные классификаторы</a></p>
   
   ## 1. Вводные определения <a name="Vvonyye_opredeleniya"></a>
@@ -495,6 +496,59 @@ _Разделяющая кривая  элипс_
 
 _Разделяющая кривая  гипербола_
 ![](img/plugin3.png)
+
+### Линейный Дискриминант Фишера  <a name="aЛДФ"></a>
+
+__ЛДФ__ основан на __подстановочном алгоритме__ с предположением,
+что ковариационные матрицы классов равны. Отсюда следует, что
+разделяющая поверхность вырождается в прямую. Это условие в
+__plug-in__ не выполнялось, так как разделяющая поверхность все равно
+была квадратичной (хоть и приближенной к прямой). Отсюда следует,
+что __ЛДФ__ должен иметь более высокое качество классификации при
+одинаковых ковариационных матрицах.
+
+Программно алгоритм отличается от __подстановочного__ пересчетом
+_ковариационной матрицы_ и поиском _разделяющей поверхности_.
+
+Так как матрицы равны, можем оценить их все вместе:
+
+![](http://latex.codecogs.com/svg.latex?%5Chat%7B%5CSigma%7D%20%3D%20%5Cfrac%7B1%7D%7Bl%20-%20%7CY%7C%7D%20%5Ccdot%20%5Csum_%7Bi%3D1%7D%5E%7Bl%7D%28x_i%20-%20%5Chat%7B%5Cmu%7D_y_i%29%28x_i%20-%20%5Chat%7B%5Cmu%7D_y_i%29%5ET)
+
+```
+estimateCovarianceMatrix = function(xy1, mu1, xy2, mu2) {
+    rows1 = dim(xy1)[1]
+    rows2 = dim(xy2)[1]
+    rows = rows1 + rows2
+    cols = dim(xy1)[2]
+    sigma = matrix(0, cols, cols)
+
+    for (i in 1:rows1)
+        sigma = sigma + (t(xy1[i,] - mu1) %*% (xy1[i,] - mu1))
+
+    for (i in 1:rows2)
+        sigma = sigma + (t(xy2[i,] - mu2) %*% (xy2[i,] - mu2))
+
+    return(sigma / (rows + 2))
+}
+```
+
+Разделяющая поверхность имеет вид:
+
+![](http://latex.codecogs.com/svg.latex?%5Calpha%20x%5ET%20&plus;%20%5Cbeta%20%3D%200), где
+
+![](https://latex.codecogs.com/svg.latex?%5Calpha%20%3D%20%5CSigma%5E%7B-1%7D%20%5Ccdot%20%28%5Cmu_y_1%20-%20%5Cmu_y_2%29%5ET),
+
+![](https://latex.codecogs.com/svg.latex?%5Cbeta%20%3D%20%5Cfrac%7B1%7D%7B2%7D%20%5Ccdot%20%5Cmu_y_1%20%5Ccdot%20%5CSigma%5E%7B-1%7D%20%5Ccdot%20%5Cmu_y_1%5ET%20-%20%5Cfrac%7B1%7D%7B2%7D%20%5Ccdot%20%5Cmu_y_2%20%5Ccdot%20%5CSigma%5E%7B-1%7D%20%5Ccdot%20%5Cmu_y_2%5ET).
+
+```
+getLDFCoeffs = function(covar, mu1, mu2) {
+    invCovar = solve(covar)
+    alpha = invCovar %*% t(mu1 - mu2)
+    beta = (mu1 %*% invCovar %*% t(mu1) - mu2 %*% invCovar %*% t(mu2)) / 2
+    list("alpha" = alpha, "beta" = beta)
+}
+```
+
 
 ## 4.Линейные классификаторы <a name="aLinear"></a>
 Пусть ![](http://latex.codecogs.com/svg.latex?X%20%3D%20%5Cmathbb%7BR%7D%5En)
