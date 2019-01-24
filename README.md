@@ -230,6 +230,19 @@ PF = function(distances, potentials, h) {
 
 ![](http://latex.codecogs.com/svg.latex?M%28x_i%29%20%3D%20W_%7By_i%7D%28x_i%29%20-%20%5Cunderset%7By%20%5Cin%20Y%20%5Csetminus%20y_i%7D%7Bmax%7DW_y%28x_i%29%29%29)
 
+```
+margin = function(points,classes,point,class){
+
+  Myclass = points[which(classes==class), ]
+  OtherClass = points[which(classes!=class), ]
+  
+  MyMargin = Parzen(Myclass,point[1:2],1,FALSE)
+  OtherMargin = Parzen(OtherClass,point[1:2],1,FALSE)
+  
+  return(MyMargin-OtherMargin)
+}
+```
+
 ![](http://latex.codecogs.com/svg.latex?W_y%28x_i%29) является весовой
 функцией и зависит от выбранного алгоритма классификации.
 
@@ -237,6 +250,8 @@ PF = function(distances, potentials, h) {
 
 
 ![](img/Stop.png)
+
+Используя метод STOLP,  количество   эталонных объектов сократилось до 5, скорость работы метода после алгоритма заметно улучшилась .
 
 
 ## 3.Байесовские классификаторы <a name="aBaes"></a>
